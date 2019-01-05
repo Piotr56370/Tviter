@@ -41,6 +41,43 @@ class User extends Model {
     tweets () {
         return this.hasMany('App/Models/Tweet')
     }
+
+    /**
+     * A user can have many followers and the user can follow many users
+     * This is a many-to-many relationship.
+     */
+    followers () {
+        return this.belongsToMany(
+            'App/Models/User', 
+            'user_id',
+            'follower_id'
+        ).pivotTable('followers')
+    }
+
+    /**
+     * The inverse relationship of the previous
+     */
+    following () {
+        return this.belongsToMany(
+            'App/Models/User',
+            'follower_id',
+            'user_id'
+        ).pivotTable('followers')
+    }
+
+    /** 
+     * The User and the Reply have a one-to-many relationship
+     */
+    replies () {
+        return this.hasMany('App/Models/Reply')
+    }
+
+    /** 
+     * The User and the Favorite have a one-to-many relationship
+     */
+    favorites () {
+      return this.hasMany('App/Models/Favorite')
+  }
 }
 
 module.exports = User

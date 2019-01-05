@@ -12,6 +12,20 @@ class Tweet extends Model {
     user () {
         return this.belongsTo('App/Models/User')
     }
+
+    /** 
+     * The Tweet and the Reply have a one-to-many relationship
+     */
+    replies () {
+        return this.hasMany('App/Models/Reply')
+    }
+
+    /** 
+     * The Tweet and the Favourite have a one-to-many relationship
+     */
+    favorites () {
+        return this.hasMany('App/Models/Favorite')
+    }
 }
 
 module.exports = Tweet
